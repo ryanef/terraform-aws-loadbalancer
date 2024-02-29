@@ -3,6 +3,10 @@ variable "vpc_id" {
   default = null
 }
 
+variable "use_default_vpc" {
+  default = true
+}
+
 variable "tg_port" {
   type    = number
   default = 8000
