@@ -1,6 +1,6 @@
 resource "aws_lb" "lb" {
   name               = var.lb_name
-  subnets            = coalesce(local.lb_subs, var.subnets)
+  subnets            = var.use_default_vpc ? local.default_vpc_subs : var.subnets
   security_groups    = var.lb_security_groups
   internal           = var.lb_internal
   load_balancer_type = var.load_balancer_type
@@ -49,5 +49,5 @@ resource "aws_default_subnet" "default_az2" {
 }
 
 locals {
-  lb_subs = [aws_default_subnet.default_az1.id, aws_default_subnet.default_az2.id]
+  default_vpc_subs = [aws_default_subnet.default_az1.id, aws_default_subnet.default_az2.id]
 }
