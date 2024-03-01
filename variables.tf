@@ -48,11 +48,13 @@ variable "lb_unhealthy_threshold" {
 variable "lt_key_name" {
   type    = string
   default = "ltkey"
+    description = "launch template key"
 }
 
 variable "lt_name" {
   type    = string
   default = "tf-lt"
+  description = "launch template name"
 }
 variable "lb_name" {
   type    = string
@@ -80,6 +82,7 @@ variable "lb_target_group_name" {
   type    = string
   default = "tf-tg"
 }
+
 variable "lb_default_action_type" {
   type    = string
   default = "forward"
@@ -100,13 +103,9 @@ variable "max_size" {
   default = 1
 }
 
-variable "public_subnets" {
-
-  default = [""]
-}
-
 variable "subnets" {
   default = [""]
+  description = "Use this when bringing in subnets from VPC module"
 }
 
 variable "tg_attachment_port" {
@@ -114,15 +113,19 @@ variable "tg_attachment_port" {
   default = 80
 }
 variable "target_type" {
-  default = "instance"
+  default = "ip"
+  type = string
+  description = "ip is for Fargate. Change to instance for EC2."
 }
 variable "tg_protocol" {
   type    = string
   default = "HTTP"
+  description = "target group protocol"
 }
 variable "tg_port" {
   type    = number
   default = 80
+  description = "target group port"
 }
 variable "user_data_file_name" {
   type    = string
