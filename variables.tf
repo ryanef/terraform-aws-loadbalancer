@@ -7,11 +7,6 @@ variable "use_default_vpc" {
   default = true
 }
 
-variable "tg_port" {
-  type    = number
-  default = 8000
-}
-
 variable "desired_capacity" {
   type    = number
   default = 1
@@ -125,7 +120,10 @@ variable "tg_protocol" {
   type    = string
   default = "HTTP"
 }
-
+variable "tg_port" {
+  type    = number
+  default = 80
+}
 variable "user_data_file_name" {
   type    = string
   default = "user-data.sh"
