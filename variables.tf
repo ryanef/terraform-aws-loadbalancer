@@ -104,7 +104,7 @@ variable "max_size" {
 
 variable "name" {
   type    = string
-  default = "MYVPC"
+  default = "MyLB"
 }
 
 variable "subnets" {
