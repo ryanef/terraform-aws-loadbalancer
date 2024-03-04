@@ -12,6 +12,11 @@ variable "desired_capacity" {
   default = 1
 }
 
+variable "environment" {
+  type = string
+  default = "dev"
+}
+
 variable "instance_count" {
   default = 1
 }
@@ -20,7 +25,7 @@ variable "lb_security_groups" {
   default = null
 }
 
-variable "load_balancer_type" {
+variable "lb_type" {
   type    = string
   default = "application"
 }
@@ -56,10 +61,7 @@ variable "lt_name" {
   default = "tf-lt"
   description = "launch template name"
 }
-variable "lb_name" {
-  type    = string
-  default = "tf-lb"
-}
+
 
 variable "lb_interval" {
   type    = number
@@ -74,13 +76,10 @@ variable "listener_port" {
   type    = number
   default = 80
 }
+
 variable "listener_protocol" {
   type    = string
   default = "HTTP"
-}
-variable "lb_target_group_name" {
-  type    = string
-  default = "tf-tg"
 }
 
 variable "lb_default_action_type" {
@@ -101,6 +100,11 @@ variable "min_size" {
 variable "max_size" {
   type    = number
   default = 1
+}
+
+variable "name" {
+  type    = string
+  default = "MYVPC"
 }
 
 variable "subnets" {
