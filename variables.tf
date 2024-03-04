@@ -116,22 +116,30 @@ variable "tg_attachment_port" {
   type    = number
   default = 80
 }
+
 variable "target_type" {
   default = "ip"
   type = string
   description = "ip is for Fargate. Change to instance for EC2."
 }
+
 variable "tg_protocol" {
   type    = string
   default = "HTTP"
   description = "target group protocol"
 }
+
 variable "tg_port" {
   type    = number
   default = 80
   description = "target group port"
 }
+
 variable "user_data_file_name" {
   type    = string
   default = "user-data.sh"
+}
+
+variable "vpc_name" {
+  default = "TF_VPC"
 }

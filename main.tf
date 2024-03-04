@@ -1,9 +1,9 @@
 resource "aws_lb" "lb" {
   name               = var.name
-  subnets            = coalesce(data.aws_subnets.this.ids, var.subnets, local.default_vpc_subs)
+  subnets            = coalesce(data.aws_subnets.this.ids)
   security_groups    = var.lb_security_groups
   internal           = var.lb_internal
-  load_balancer_type = var.load_balancer_type
+  load_balancer_type = var.lb_type
   idle_timeout       = var.lb_idle_timeout
 }
 
@@ -12,7 +12,7 @@ resource "aws_lb_target_group" "tg" {
   port        = var.tg_port
   target_type = var.target_type
   protocol    = var.tg_protocol
-  vpc_id      = coalesce(var.vpc_id, aws_default_vpc.default.id)
+  vpc_id      = coalesce(data.aws_vpc.this.id, aws_default_vpc.default.id)
 
 
   lifecycle {
