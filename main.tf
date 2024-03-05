@@ -50,7 +50,7 @@ resource "aws_security_group" "allow_public" {
   vpc_id      = data.aws_vpc.this.id
 
   tags = {
-    Name = "${var.vpc_name}-lb-allow-public"
+    Name = "${var.vpc_name}-${var.environment}-lb-allow-public"
   }
 }
 resource "aws_vpc_security_group_ingress_rule" "ingress" {
