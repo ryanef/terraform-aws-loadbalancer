@@ -179,10 +179,10 @@ variable "user_data_file_name" {
 }
 
 variable "vpc_name" {
-  default = "TF_CONTROLLER"
+  default = "TFE_CONTROLLER"
 }
 
 variable "vpc_tag" {
   type = string
-  default = "TF_CONTROLLER"
+  default = "TFE_CONTROLLER"
 }

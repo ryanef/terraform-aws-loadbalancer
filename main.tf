@@ -1,7 +1,7 @@
 resource "aws_lb" "lb" {
   name               = var.name
   subnets            = coalesce(data.aws_subnets.this.ids)
-  security_groups    = var.lb_security_groups
+  security_groups    = [aws_security_group.allow_public.id]
   internal           = var.lb_internal
   load_balancer_type = var.lb_type
   idle_timeout       = var.lb_idle_timeout
@@ -47,7 +47,7 @@ resource "aws_lb_listener" "lb_listener" {
 resource "aws_security_group" "allow_public" {
   name        = "public traffic for loadbalancer"
   description = "public traffic for loadbalancer"
-  vpc_id      = var.vpc_id
+  vpc_id      = data.aws_vpc.this.id
 
   tags = {
     Name = "${var.vpc_name}-lb-allow-public"
