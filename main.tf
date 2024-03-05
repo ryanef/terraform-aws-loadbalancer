@@ -44,6 +44,31 @@ resource "aws_lb_listener" "lb_listener" {
 
 }
 
+resource "aws_security_group" "allow_public" {
+  name        = "public traffic for loadbalancer"
+  description = "public traffic for loadbalancer"
+  vpc_id      = var.vpc_id
+
+  tags = {
+    Name = "${var.vpc_name}-lb-allow-public"
+  }
+}
+resource "aws_vpc_security_group_ingress_rule" "ingress" {
+  security_group_id = aws_security_group.allow_public.id
+  cidr_ipv4 =         var.ingress_cidr_ipv4
+  from_port         = var.ingress_from_port
+  ip_protocol       = var.ingress_ip_protocol
+  to_port           = var.ingress_to_port
+  referenced_security_group_id = var.ingress_referenced_security_group_id
+}
+resource "aws_vpc_security_group_egress_rule" "egress" {
+  security_group_id = aws_security_group.allow_public.id
+  cidr_ipv4 =         var.egress_cidr_ipv4
+  from_port         = var.egress_from_port
+  ip_protocol       = var.egress_ip_protocol
+  to_port           = var.egress_to_port
+  referenced_security_group_id = var.ingress_referenced_security_group_id
+}
 resource "aws_default_subnet" "default_az1" {
   availability_zone = "${data.aws_region.current.name}a"
 }
