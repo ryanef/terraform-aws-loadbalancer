@@ -16,6 +16,44 @@ variable "environment" {
   type = string
   default = "dev"
 }
+variable "egress_cidr_ipv4"{
+   default = "0.0.0.0/0"
+   type = string
+}
+variable "egress_from_port"{
+    default = null
+
+}
+variable "egress_ip_protocol"{
+    default = "-1"
+    type = string
+
+}
+variable "egress_to_port"{
+  default = null
+}
+variable "egress_referenced_security_group_id"{
+  default = null
+}
+
+variable "ingress_cidr_ipv4"{
+  default = "0.0.0.0/0"
+  type = string
+}
+variable "ingress_from_port"{
+  default = null
+}
+variable "ingress_ip_protocol"{
+  default = "-1"
+  type = string
+}
+variable "ingress_to_port"{
+  default = null
+}
+variable "ingress_referenced_security_group_id"{
+  default = null
+}
+
 
 variable "instance_count" {
   default = 1
@@ -141,5 +179,10 @@ variable "user_data_file_name" {
 }
 
 variable "vpc_name" {
-  default = "TF_VPC"
+  default = "TF_CONTROLLER"
+}
+
+variable "vpc_tag" {
+  type = string
+  default = "TF_CONTROLLER"
 }

@@ -14,6 +14,7 @@ data "aws_subnets" "this" {
 
 data "aws_vpc" "this" {
   tags = {
-    Name = "${var.vpc_name}-${var.environment}"
+    Name = "${var.vpc_name}"
+    Details = var.vpc_tag !="" ? var.vpc_tag : null
   }
 }
