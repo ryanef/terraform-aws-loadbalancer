@@ -3,15 +3,6 @@ variable "vpc_id" {
   default = null
 }
 
-variable "use_default_vpc" {
-  default = true
-}
-
-variable "desired_capacity" {
-  type    = number
-  default = 1
-}
-
 variable "environment" {
   type = string
   default = "dev"
@@ -54,15 +45,6 @@ variable "ingress_referenced_security_group_id"{
   default = null
 }
 
-
-variable "instance_count" {
-  default = 1
-}
-
-variable "lb_security_groups" {
-  default = null
-}
-
 variable "lb_type" {
   type    = string
   default = "application"
@@ -88,19 +70,6 @@ variable "lb_unhealthy_threshold" {
   default = 2
 }
 
-variable "lt_key_name" {
-  type    = string
-  default = "ltkey"
-    description = "launch template key"
-}
-
-variable "lt_name" {
-  type    = string
-  default = "tf-lt"
-  description = "launch template name"
-}
-
-
 variable "lb_interval" {
   type    = number
   default = 30
@@ -125,27 +94,7 @@ variable "lb_default_action_type" {
   default = "forward"
 }
 
-variable "lt_instance_type" {
-  default = "t2.micro"
-  type    = string
-}
-
-variable "min_size" {
-  type    = number
-  default = 1
-}
-
-variable "max_size" {
-  type    = number
-  default = 1
-}
-
-variable "name" {
-  type    = string
-  default = "MyLB"
-}
-
-variable "subnets" {
+variable "public_subnets" {
   default = [""]
   description = "Use this when bringing in subnets from VPC module"
 }
@@ -173,16 +122,8 @@ variable "tg_port" {
   description = "target group port"
 }
 
-variable "user_data_file_name" {
-  type    = string
-  default = "user-data.sh"
-}
 
 variable "vpc_name" {
-  default = "TFE_CONTROLLER"
+  type = string
 }
 
-variable "vpc_tag" {
-  type = string
-  default = "TFE_CONTROLLER"
-}

@@ -1,18 +1,22 @@
 resource "aws_lb" "lb" {
-  name               = var.name
-  subnets            = coalesce(data.aws_subnets.this.ids)
+  name               = var.vpc_name
+  subnets            = var.public_subnets
   security_groups    = [aws_security_group.allow_public.id]
   internal           = var.lb_internal
   load_balancer_type = var.lb_type
   idle_timeout       = var.lb_idle_timeout
+
+  tags = {
+    Name = "${var.vpc_name}-${var.environment}-public-lb"
+  }
 }
 
 resource "aws_lb_target_group" "tg" {
-  name        = var.name
+  name        = var.vpc_name
   port        = var.tg_port
   target_type = var.target_type
   protocol    = var.tg_protocol
-  vpc_id      = coalesce(data.aws_vpc.this.id, aws_default_vpc.default.id)
+  vpc_id      = var.vpc_id
 
 
   lifecycle {
@@ -47,10 +51,10 @@ resource "aws_lb_listener" "lb_listener" {
 resource "aws_security_group" "allow_public" {
   name        = "public traffic for loadbalancer"
   description = "public traffic for loadbalancer"
-  vpc_id      = data.aws_vpc.this.id
+  vpc_id      = var.vpc_id
 
   tags = {
-    Name = "${var.vpc_name}-${var.environment}-lb-allow-public"
+    Name = "${var.vpc_name}-${var.environment}-public-lb"
   }
 }
 resource "aws_vpc_security_group_ingress_rule" "ingress" {
@@ -68,15 +72,4 @@ resource "aws_vpc_security_group_egress_rule" "egress" {
   ip_protocol       = var.egress_ip_protocol
   to_port           = var.egress_to_port
   referenced_security_group_id = var.ingress_referenced_security_group_id
-}
-resource "aws_default_subnet" "default_az1" {
-  availability_zone = "${data.aws_region.current.name}a"
-}
-
-resource "aws_default_subnet" "default_az2" {
-  availability_zone = "${data.aws_region.current.name}b"
-}
-
-locals {
-  default_vpc_subs = [aws_default_subnet.default_az1.id, aws_default_subnet.default_az2.id]
 }
