@@ -50,6 +50,11 @@ variable "lb_type" {
   default = "application"
 }
 
+variable "health_check_enabled" {
+  type = bool
+  default = true
+}
+
 variable "lb_idle_timeout" {
   type    = number
   default = 30

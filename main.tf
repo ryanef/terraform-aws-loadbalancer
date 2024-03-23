@@ -25,6 +25,7 @@ resource "aws_lb_target_group" "tg" {
   }
 
   health_check {
+    enabled = var.health_check_enabled
     healthy_threshold   = var.lb_healthy_threshold
     unhealthy_threshold = var.lb_unhealthy_threshold
     interval            = var.lb_interval
