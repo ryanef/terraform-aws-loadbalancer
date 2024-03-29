@@ -13,10 +13,10 @@ output "security_group_id" {
   value = aws_security_group.allow_public.id
 }
 output "tg_id" {
-  value = aws_lb_target_group.tg.id
+  value = {for k,v in aws_lb_target_group.tg : k=>v.id}
 }
 
 output "tg_arn" {
-  value = aws_lb_target_group.tg.arn
+  value = {for k,v in aws_lb_target_group.tg : k=>v.arn}
 }
 

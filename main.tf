@@ -12,11 +12,13 @@ resource "aws_lb" "lb" {
 }
 
 resource "aws_lb_target_group" "tg" {
-  name        = var.vpc_name
-  port        = var.tg_port
-  target_type = var.target_type
-  protocol    = var.tg_protocol
-  vpc_id      = var.vpc_id
+
+  for_each = var.target_group
+  name        = each.value.name
+  port        = each.value.port
+  target_type = each.value.target_type
+  protocol    = each.value.protocol
+  vpc_id      = each.value.vpc_id
 
 
   lifecycle {
@@ -25,24 +27,25 @@ resource "aws_lb_target_group" "tg" {
   }
 
   health_check {
-    enabled = var.health_check_enabled
-    healthy_threshold   = var.lb_healthy_threshold
-    unhealthy_threshold = var.lb_unhealthy_threshold
-    interval            = var.lb_interval
-    timeout             = var.lb_timeout
+    enabled = each.value.enabled
+    healthy_threshold   = each.value.healthy_threshold
+    unhealthy_threshold = each.value.unhealthy_threshold
+    interval            = each.value.interval
+    timeout             = each.value.timeout
   }
 
   depends_on = [aws_lb.lb]
 }
 
 resource "aws_lb_listener" "lb_listener" {
+  for_each = aws_lb_target_group.tg
   load_balancer_arn = aws_lb.lb.arn
-  port              = var.listener_port
-  protocol          = var.listener_protocol
+  port              = each.value.port
+  protocol          = "HTTP"
 
   default_action {
     type             = var.lb_default_action_type
-    target_group_arn = aws_lb_target_group.tg.arn
+    target_group_arn = each.value.arn
   }
 
   depends_on = [aws_lb_target_group.tg]
