@@ -109,11 +109,34 @@ variable "tg_attachment_port" {
   default = 80
 }
 
+variable "target_group" {
+  type = map
+
+
+  # default = {
+  #       frontend={
+  #       name        = "first"
+  #       port        = 80
+  #       target_type = "ip"
+  #       protocol    = "-1"
+  #       vpc_id      = ""
+        
+  #       enabled =true
+  #       healthy_threshold   = 5
+  #       unhealthy_threshold = 2
+  #       interval            = 30
+  #       timeout             = 3
+     
+  #   }
+  }
+
+
 variable "target_type" {
   default = "ip"
   type = string
   description = "ip is for Fargate. Change to instance for EC2."
 }
+
 
 variable "tg_protocol" {
   type    = string
