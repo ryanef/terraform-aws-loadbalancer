@@ -3,6 +3,10 @@ variable "vpc_id" {
   default = null
 }
 
+variable "deregistration_delay"{
+  type = number
+  default = 60
+}
 variable "environment" {
   type = string
   default = "dev"
