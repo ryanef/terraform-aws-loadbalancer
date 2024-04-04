@@ -19,7 +19,7 @@ resource "aws_lb_target_group" "tg" {
   target_type = each.value.target_type
   protocol    = each.value.protocol
   vpc_id      = each.value.vpc_id
-
+  deregistration_delay = var.deregistration_delay
 
   lifecycle {
     create_before_destroy = true
